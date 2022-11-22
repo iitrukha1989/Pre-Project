@@ -32,7 +32,7 @@ week_value = 'W' + str(datetime.datetime.now().isocalendar()[1] - 2)
 
 
 # 2 этап: Функции
-# Функция - 1: Формирование реестра в формате .xlsx по текущей неделе, а также свода по ПО для рассылки в адрес ЦУПРИС
+# Функция - 1: Формирование реестра в формате .xlsx по текущей неделе, а также свода по ПО для рассылки в адрес руководства
 def info_reestr():
     df_value = pandas.read_excel(tmp_dir + r'\Reestr.xlsx', sheet_name='реестр').values.tolist()
     po_list_not = list()
@@ -168,7 +168,7 @@ def info_delay(dict_delay):
     book_value.close()
 
 
-# Функция - 5: Функция рассылка письма в адрес ЦУПРИС
+# Функция - 5: Функция рассылка письма в адрес руководства
 def send_mail():
     outlook_value = win32com.client.Dispatch("Outlook.Application", pythoncom.CoInitialize())
     send_account = None
@@ -189,7 +189,7 @@ def send_mail():
     os.remove(back_dir + r'\Reestr_delay_cypris_' + date_reestr + '.xlsx')
 
 
-# Функция - 6: Формирования адаптивного текста письма для рассылки в адрес руководства руководства
+# Функция - 6: Формирования адаптивного текста письма для рассылки в адрес руководства
 def create_html(message_value):
     reestr_list, po_list, po_list_not, po_list_incorrect, po_list_error = info_reestr()
     create_dict_delay(po_list)
