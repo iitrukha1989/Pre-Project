@@ -44,7 +44,7 @@ def get_mail():
     else:
         limit_day = (datetime.datetime.today() - datetime.timedelta(days=9))
     outlook = client.Dispatch("Outlook.Application", pythoncom.CoInitialize()).GetNamespace("MAPI")
-    inbox = outlook.Folders("cupris-vostok@mts.ru").Folders("Входящие").Folders("План-графики").Items
+    inbox = outlook.Folders("********@*****.***").Folders("*****").Folders("******").Items
     messages = inbox.GetLast()
     while messages:
         if messages.Class == 43:
