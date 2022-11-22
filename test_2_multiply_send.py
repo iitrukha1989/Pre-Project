@@ -9,9 +9,9 @@ import openpyxl
 import pandas
 import os
 
-# Скрипт по автоматической рассылке в адрес ЦУПРИС результатов/итогов работы с ПО, в части получения, анализа ПГ
-# Разработчик: iitrukha@mtr.ru
-# Версия: 1.2 (Используется адаптивное формирование текста письма для рассылки в адрес ЦУПРИС)
+# Скрипт по автоматической рассылке в адрес руководства результатов/итогов работы с ПО, в части получения, анализа ПГ
+# Разработчик: Ilya Turkhanovich
+# Версия: 1.2 (Используется адаптивное формирование текста письма для рассылки в адрес руководства)
 # Статус: Автоматический запуск, тестирование
 # Расписание запуска: По понедельника каждую четную неделю, в 09:00 по Нск
 
@@ -83,7 +83,7 @@ def info_reestr():
     return reestr_list, po_list, po_list_not, po_list_incorrect, po_list_error
 
 
-# Функция - 2: Определение ЦУПРИС в котором работает соответсвующий ПО
+# Функция - 2: Определение подраделения в котором работает соответсвующий ПО
 def detect_cypris(po_name):
     cypris_set = set()
     for set_r_value, set_d_value, set_f_value in os.walk(set_dir):
@@ -173,7 +173,7 @@ def send_mail():
     outlook_value = win32com.client.Dispatch("Outlook.Application", pythoncom.CoInitialize())
     send_account = None
     for account in outlook_value.Session.Accounts:
-        if account.DisplayName == "cupris-vostok@mts.ru":
+        if account.DisplayName == "******@*******.****":
             send_account = account
             break
     message_value = outlook_value.CreateItem(0)
@@ -182,14 +182,14 @@ def send_mail():
     create_html(message_value)
     message_value.Attachments.Add(back_dir + r'\Reestr_cypris_' + date_reestr + '.xlsx')
     message_value.Attachments.Add(back_dir + r'\Reestr_delay_cypris_' + date_reestr + '.xlsx')
-    message_value.To = """bazrov@mts.ru; cupris_west@mts.ru; v.sofronov@mts.ru; yafilic1@mts.ru;
-    Dashkov.Roman@mts.ru; Yevgeny.Shherbakov@mts.ru; P.Zakharov@mts.ru"""
+    message_value.To = """*****@****.****; *****@****.****; *****@****.****; *****@****.****;
+    *****@****.****; *****@****.****; *****@****.****;"""
     message_value.Send()
     os.remove(back_dir + r'\Reestr_cypris_' + date_reestr + '.xlsx')
     os.remove(back_dir + r'\Reestr_delay_cypris_' + date_reestr + '.xlsx')
 
 
-# Функция - 6: Формирования адаптивного текста письма для рассылки в адрес руководства ЦУПРИС
+# Функция - 6: Формирования адаптивного текста письма для рассылки в адрес руководства руководства
 def create_html(message_value):
     reestr_list, po_list, po_list_not, po_list_incorrect, po_list_error = info_reestr()
     create_dict_delay(po_list)
