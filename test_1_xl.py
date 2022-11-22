@@ -37,7 +37,7 @@ week_value = 'W' + str(datetime.datetime.now().isocalendar()[1] - 2)
 week_year_value = week_value + str(date_year_value)
 
 # 2 этап: Функции
-# Функция - 1: Формирование общего статусного отчета по всей РФ из БД ДКРИС
+# Функция - 1: Формирование общего статусного отчета по всей РФ из БД
 def create_status():
     list_status = list()
     list_status_option = list()
@@ -67,7 +67,7 @@ def create_status():
     return expend_frost_status(list_status)
 
 
-# Функция - 2: Формирования списка замороженных объектов по всем РФ из БД ДКРИС
+# Функция - 2: Формирования списка замороженных объектов по всем РФ из БД
 def create_freezing():
     freezing_list = list()
     freezy_connect = pyodbc.connect(status_db_string)
@@ -164,11 +164,11 @@ def create_pg_option(po_value, list_status):
                 check_status = 1
                 tmp_index += 1
     sheet_value.delete_rows(tmp_index, 1000)
-    book_value.save(set_dir + str(r'\План-график БС ПАО МТС_' + po_value + '_' + date_value + '.xlsx'))
+    book_value.save(set_dir + str(r'\План-график БС' + po_value + '_' + date_value + '.xlsx'))
     book_value.close()
     update_formula(po_value, tmp_index)
     if check_status == 0:
-        os.remove(set_dir + str(r'\План-график БС ПАО МТС_' + po_value + '_' + date_value + '.xlsx'))
+        os.remove(set_dir + str(r'\План-график БС' + po_value + '_' + date_value + '.xlsx'))
 
 
 # Функция - 7: Сверка/дополнение сформированного ПГ с данными из локальной БД
