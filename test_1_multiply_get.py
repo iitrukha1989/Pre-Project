@@ -125,7 +125,7 @@ def check_pg():
                         name_po_set = str(file_set)[23:-14]
                         if name_po_set == po_name:
                             check_po = 0
-                if cypris_value != 'ЦУПРИС':
+                if cypris_value != '********':
                     check_po = 1
                 if check_po == 1:
                     os.remove(get_dir + '\\' + file_name)
