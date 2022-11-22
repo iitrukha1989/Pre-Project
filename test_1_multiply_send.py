@@ -43,7 +43,7 @@ def send_mail():
             if book_name.endswith('.zip'):
                 inn_po = pathlib.Path(book_name).stem[-20:-10]
                 name_po = str(book_name)[23:-13]
-                df_value_pg = pandas.read_excel(set_dir + f'\План-график БС ПАО МТС_{name_po}_{date_value}.xlsx',
+                df_value_pg = pandas.read_excel(set_dir + f'\План-график БС_{name_po}_{date_value}.xlsx',
                                                 sheet_name='ПГ', header=5).values.tolist()
                 po_dict = {87: list(), 90: list(), 91: list(), 92: list(), 93: list(), 94: list()}
                 for row_value in df_value_pg:
@@ -62,16 +62,16 @@ def send_mail_option(book_name, name_po, email_po, po_dict):
     outlook_value = client.Dispatch("Outlook.Application", pythoncom.CoInitialize())
     send_account = None
     for account in outlook_value.Session.Accounts:
-        if account.DisplayName == "cupris-vostok@mts.ru":
+        if account.DisplayName == "******@*****.**":
             send_account = account
             break
     message_value = outlook_value.CreateItem(0)
     message_value._oleobj_.Invoke(*(64209, 0, 8, 0, send_account))
-    message_value.Subject = f"План-график БС ПАО МТС_{name_po}"
+    message_value.Subject = f"План-график БС_{name_po}"
     create_html(message_value, po_dict)
     message_value.Attachments.Add(set_dir + '\\' + book_name)
     message_value.To = email_po
-    message_value.CC = 'data.cupris_west@mts.ru; cupris-vostok@mts.ru; cupris_west@mts.ru'
+    message_value.CC = '******@****.****; ******@****.****; ******@****.****;'
     message_value.Send()
     log_reestr(name_po)
     os.remove(set_dir + '\\' + book_name)
