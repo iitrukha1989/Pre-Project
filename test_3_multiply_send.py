@@ -12,9 +12,9 @@ import pyodbc
 import pandas
 import os
 
-# Скрипт по отправке сводных данных по ПГ в адрес ОРС
+# Скрипт по отправке сводных данных по ПГ в адрес сотрудников
 # Разработчик: Ilya Trukhanovich
-# Версия: 1.3 (Используется адаптивное формирование текста письма для рассылки в адрес ОРС)
+# Версия: 1.3 (Используется адаптивное формирование текста письма для рассылки в адрес сотрудников)
 # Статус: Автоматический запуск, тестирование
 # Расписание запуска: По понедельника каждую четную неделю, в 09:00 по Нск
 
@@ -62,7 +62,7 @@ def update_pg():
                         book_value.close()
 
 
-# Функция - 2: Формирование выгрузки из БД ДКРИС по определенному ПО, за текущую дату
+# Функция - 2: Формирование выгрузки из БД по определенному ПО, за текущую дату
 def create_status(po_name):
     list_status = list()
     list_status_option = list()
@@ -156,7 +156,7 @@ def send_mail():
         send_mail_option(region_name, dict_diff, po_get)
 
 
-# Функция - 8: Опционная функция формирования вложения, текста письма, и отправки в адрес ОРС
+# Функция - 8: Опционная функция формирования вложения, текста письма, и отправки в адрес сотрудников
 def send_mail_option(region_name, dict_diff, po_get):
     outlook_value = client.Dispatch("Outlook.Application", pythoncom.CoInitialize())
     for account in outlook_value.Session.Accounts:
@@ -174,7 +174,7 @@ def send_mail_option(region_name, dict_diff, po_get):
     os.remove(set_dir + '\\' + f'План-график ({region_name}).xlsx')
 
 
-# Функция - 9: Формирования адаптивного текста письма для рассылки в адрес ОРС
+# Функция - 9: Формирования адаптивного текста письма для рассылки в адрес сотрудников
 def create_html(message_value, region_name, dict_diff, po_get):
     po_list_get = set()
     po_list_1 = list()
@@ -232,7 +232,7 @@ def create_dataframe(region_name):
     return df_value
 
 
-# Функция - 11: Формирование списка контактных данных ОРС
+# Функция - 11: Формирование списка контактных данных сотрудников
 def create_region_contact(region_name):
     df_value = pandas.read_excel(tmp_dir + r'\Contact_ors.xlsx', sheet_name='ТД_ОРС').values.tolist()
     for tmp_value in df_value:
