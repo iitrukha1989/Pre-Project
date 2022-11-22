@@ -299,7 +299,7 @@ def send_mail(name_po, contact_po, status_pg):
     outlook_api = win32com.client.Dispatch("Outlook.Application", pythoncom.CoInitialize())
     send_account = None
     for account in outlook_api.Session.Accounts:
-        if account.DisplayName == "cupris-vostok@mts.ru":
+        if account.DisplayName == "******@*****.*****":
             send_account = account
             break
     message_value = outlook_api.CreateItem(0)
@@ -307,10 +307,10 @@ def send_mail(name_po, contact_po, status_pg):
     message_value.Subject = f"План-график БС ПАО МТС_{name_po}_(повторный)"
     create_html(message_value, po_dict, res_status)
     if status_pg == 'с ошибками':
-        message_value.Attachments.Add(get_dir + f'\План-график БС ПАО МТС_{name_po}_{date_value}.zip')
+        message_value.Attachments.Add(get_dir + f'\План-график БС_{name_po}_{date_value}.zip')
     else:
         date_value_1 = (datetime.datetime.now() - datetime.timedelta(days=6)).strftime("%d%m%Y")
-        message_value.Attachments.Add(set_dir + f'\План-график БС ПАО МТС_{name_po}_{date_value_1}.zip')
+        message_value.Attachments.Add(set_dir + f'\План-график БС_{name_po}_{date_value_1}.zip')
     message_value.To = contact_po
     message_value.CC = '******@****.***; ******@****.***; ******@****.***;'
     message_value.Send()
