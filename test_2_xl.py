@@ -14,7 +14,7 @@ import pandas
 import os
 
 # Скрипт по сверке полученных от ПО план - графиков (далее по тексту ПГ) на предмет валидности по шаблону
-# Разработчик: iitrukha@mtr.ru
+# Разработчик: Ilya Trukhanovich
 # Версия: 1.3 (Используется адаптивное формирования текста письма повторного запроса, анализ обновленного шаблона ПГ)
 # Статус: Автоматический запуск, тестирование
 # Расписание запуска: По четвергам и субботам каждую не четную неделю, после выполнения test_1_multiply_get.py
@@ -45,7 +45,7 @@ def check_get_1():
                     check_value = 0
                     for get_r_value_1, get_d_value_1, get_f_value_1 in os.walk(get_dir):
                         for get_file_1 in get_f_value_1:
-                            if get_file_1 == str(r'План-график БС ПАО МТС_' + name_po_get + '_' + date_value + '.xlsx'):
+                            if get_file_1 == str(r'План-график БС' + name_po_get + '_' + date_value + '.xlsx'):
                                 book_value = openpyxl.open(get_dir + '\\' + get_file_1)
                                 check_get_option(pg_tuple, book_value, name_po_get, sender_date)
                                 check_value = 1
@@ -312,7 +312,7 @@ def send_mail(name_po, contact_po, status_pg):
         date_value_1 = (datetime.datetime.now() - datetime.timedelta(days=6)).strftime("%d%m%Y")
         message_value.Attachments.Add(set_dir + f'\План-график БС ПАО МТС_{name_po}_{date_value_1}.zip')
     message_value.To = contact_po
-    message_value.CC = 'data.cupris_west@mts.ru; cupris-vostok@mts.ru; cupris_west@mts.ru'
+    message_value.CC = '******@****.***; ******@****.***; ******@****.***;'
     message_value.Send()
 
 
