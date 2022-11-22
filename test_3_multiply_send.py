@@ -13,7 +13,7 @@ import pandas
 import os
 
 # Скрипт по отправке сводных данных по ПГ в адрес ОРС
-# Разработчик: iitrukha@mts.ru
+# Разработчик: Ilya Trukhanovich
 # Версия: 1.3 (Используется адаптивное формирование текста письма для рассылки в адрес ОРС)
 # Статус: Автоматический запуск, тестирование
 # Расписание запуска: По понедельника каждую четную неделю, в 09:00 по Нск
@@ -84,10 +84,10 @@ def create_status(po_name):
                 else:
                     list_status_option.append(tmp_status[25])
             if col_index == 26:
-                if tmp_status[26] == 'ЦУПРИС Восток':
-                    list_status_option.append('Восток')
-                elif tmp_status[26] == 'ЦУПРИС Запад':
-                    list_status_option.append('Запад')
+                if tmp_status[26] == '******* *******':
+                    list_status_option.append('*******')
+                elif tmp_status[26] == '****** ******':
+                    list_status_option.append('*******')
                 else:
                     list_status_option.append(tmp_status[26])
         list_status.append(list(list_status_option))
@@ -160,7 +160,7 @@ def send_mail():
 def send_mail_option(region_name, dict_diff, po_get):
     outlook_value = client.Dispatch("Outlook.Application", pythoncom.CoInitialize())
     for account in outlook_value.Session.Accounts:
-        if account.DisplayName == "cupris-vostok@mts.ru":
+        if account.DisplayName == "********@******.***":
             send_account = account
             break
     message_value = outlook_value.CreateItem(0)
@@ -169,7 +169,7 @@ def send_mail_option(region_name, dict_diff, po_get):
     create_html(message_value, region_name, dict_diff, po_get)
     message_value.Attachments.Add(set_dir + '\\' + f'План-график ({region_name}).xlsx')
     message_value.To = create_region_contact(region_name)
-    message_value.CC = 'cupris_west@mts.ru; cupris-vostok@mts.ru'
+    message_value.CC = '******@****.***; ********@*****.***'
     message_value.Send()
     os.remove(set_dir + '\\' + f'План-график ({region_name}).xlsx')
 
